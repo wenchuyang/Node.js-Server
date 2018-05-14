@@ -10,11 +10,11 @@ if(!port){
 
 var server = http.createServer(function(request, response){
   var parsedUrl = url.parse(request.url, true)
-  var path = request.url 
-  var query = ''
-  if(path.indexOf('?') >= 0){ query = path.substring(path.indexOf('?')) }
-  var pathNoQuery = parsedUrl.pathname
-  var queryObject = parsedUrl.query
+  var pathWithQuery = request.url 
+  var queryString = ''
+  if(pathWithQuery.indexOf('?') >= 0){ queryString = pathWithQuery.substring(pathWithQuery.indexOf('?')) }
+  var path = parsedUrl.pathname
+  var query = parsedUrl.query
   var method = request.method
 
   /******** 从这里开始看，上面不要看 ************/
@@ -23,24 +23,34 @@ var server = http.createServer(function(request, response){
 
 
 
+  var money = +fs.readFileSync('money.db', 'utf8')
+  if(path === '/'){
+    var string = fs.readFileSync('index.html', 'utf8')
 
+    string = string.replace('&&&amount&&&', money)
+    response.write(string)
 
-
-
-console.log('含查询字符串的路径是：' + path)
-
-if(path === '/'){
-  response.statusCode = 200
-  response.setHeader('Content-Type', 'text/html; charset=utf-8')
-  response.write('哈哈哈')
-  response.end()
-}else{
-  response.statusCode = 404
-  response.setHeader('Content-Type', 'text/html; charset=utf-8')
-  response.write('呜呜呜')
-  response.end()
-}
-
+    response.end()
+  }else if(path === '/pay'){   //并且，如果删除函数的话会报错根本没法继续执行。。。
+    if(Math.random() > 0.5){
+      response.statusCode = 200
+      response.setHeader('Content-Type', 'applicant/script; charset=utf-8')
+      response.write(`
+        ${query.callback}.call(undefined, 'success')
+      `)
+      fs.writeFileSync('./money.db', money-1)
+    }else{
+      response.statusCode = 400
+      response.setHeader('Content-Type', 'applicant/script; charset=utf-8')
+    }
+    
+    response.end()
+  }else{
+    response.statusCode = 404
+    response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    response.write('没有对应的网页，滚！')
+    response.end()
+  }
 
 
 
