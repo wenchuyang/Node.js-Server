@@ -30,9 +30,14 @@ var server = http.createServer(function(request, response){
     response.write(string)
     response.end()
   }else if(path === '/pay'){
-    response.statusCode = 200
-    response.setHeader('Content-Type', 'application/javascript; charset=utf-8')
-    fs.writeFileSync('money.db', --money)
+    if(Math.random() > 0.5){
+      response.statusCode = 200
+      response.setHeader('Content-Type', 'application/javascript; charset=utf-8')
+      fs.writeFileSync('money.db', --money)
+    }else{
+      response.statusCode = 400
+    }
+    
     response.end()
   }else{
     response.statusCode = 404
