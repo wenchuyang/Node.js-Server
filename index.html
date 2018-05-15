@@ -7,26 +7,12 @@
   <title>Document</title>
 </head>
 <body>
-  <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
-  <input type="submit" value="付款一元">
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <p> 我，秦始皇，打钱。你的余额为<span id="amount">100</span> </p> 
+  <input type="submit" value="付款一元" id="button">
+  
   <script>
-    
-    var button = document.querySelector('input')
     button.addEventListener('click', function(){
-      $.ajax({
-        url: "http://localhost:8080/pay",
-        dataType: "jsonp",
-        success: function(response){
-            amount.innerText = +amount.innerText -1 
-            alert("success")
-        }
-      }).fail(function() {
-          alert( "error" );
-        })
+      amount.innerText = amount.innerText -1
     })
   </script>
 </body>
