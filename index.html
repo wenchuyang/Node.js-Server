@@ -11,13 +11,14 @@
     <input type="submit" value="付款一元" id="button">
   <script>
     button.addEventListener('click', function(){
-      let script = document.createElement('script')  
-      window.xxx = function(e){
+      let script = document.createElement('script')
+      let functionName = 'wcy' + parseInt(Math.random()*1000000).toString()
+      window[functionName] = function(e){
         alert('打钱成功，再打一元，一统天下！')
         amount.innerText = amount.innerText -1
-        delete window.xxx
+        delete window[functionName]
       }
-      script.src = '/pay?callbackName=xxx'
+      script.src = `/pay?callbackName=${functionName}`
       document.body.appendChild(script)
       script.onerror = function(){
         alert('打钱失败，重新打钱')
