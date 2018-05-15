@@ -11,13 +11,14 @@
     <input type="submit" value="付款一元" id="button">
   <script>
     button.addEventListener('click', function(){
-      let img = document.createElement('img')  
-      img.src = '/pay'
-      img.onload = function(){
+      let script = document.createElement('script')  
+      script.src = '/pay'
+      document.body.appendChild(script)
+      script.onload = function(){
         alert('打钱成功，再打一元，一统天下！')
-        window.location.reload()
+        amount.innerText = amount.innerText -1
       }
-      img.onerror = function(){
+      script.onerror = function(){
         alert('打钱失败，重新打钱')
       }
     })
