@@ -7,14 +7,19 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="/pay" method="POST">
     <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
     <input type="submit" value="付款一元" id="button">
-  </form>
-  
   <script>
     button.addEventListener('click', function(){
-      
+      let img = document.createElement('img')  
+      img.src = '/pay'
+      img.onload = function(){
+        alert('打钱成功，再打一元，一统天下！')
+        window.location.reload()
+      }
+      img.onerror = function(){
+        alert('打钱失败，重新打钱')
+      }
     })
   </script>
 </body>

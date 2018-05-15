@@ -31,9 +31,9 @@ var server = http.createServer(function(request, response){
     response.end()
   }else if(path === '/pay'){
     response.statusCode = 200
-    response.setHeader('Content-Type', 'text/html; charset=utf-8')
-    fs.writeFileSync('money.db', money--)
-    response.write('成功')
+    response.setHeader('Content-Type', 'image/png; charset=utf-8')
+    fs.writeFileSync('money.db', --money)
+    response.write(fs.readFileSync('test.png'))
     response.end()
   }else{
     response.statusCode = 404
