@@ -33,11 +33,11 @@ var server = http.createServer(function(request, response){
     if(Math.random() > 0.5){
       response.statusCode = 200
       response.setHeader('Content-Type', 'application/javascript; charset=utf-8')
+      response.write(`${query.callbackName}.call(undefined, 'success')`)
       fs.writeFileSync('money.db', --money)
     }else{
       response.statusCode = 400
-    }
-    
+    }   
     response.end()
   }else{
     response.statusCode = 404

@@ -12,12 +12,13 @@
   <script>
     button.addEventListener('click', function(){
       let script = document.createElement('script')  
-      script.src = '/pay'
-      document.body.appendChild(script)
-      script.onload = function(){
+      window.xxx = function(e){
         alert('打钱成功，再打一元，一统天下！')
         amount.innerText = amount.innerText -1
+        delete window.xxx
       }
+      script.src = '/pay?callbackName=xxx'
+      document.body.appendChild(script)
       script.onerror = function(){
         alert('打钱失败，重新打钱')
       }
