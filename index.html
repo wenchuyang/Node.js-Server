@@ -9,21 +9,22 @@
 <body>
     <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
     <input type="submit" value="付款一元" id="button">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   <script>
     button.addEventListener('click', function(){
-      let script = document.createElement('script')
-      let functionName = 'wcy' + parseInt(Math.random()*1000000).toString()
-      window[functionName] = function(e){
-        alert('打钱成功，再打一元，一统天下！')
-        amount.innerText = amount.innerText -1
-        delete window[functionName]
-      }
-      script.src = `/pay?callbackName=${functionName}`
-      document.body.appendChild(script)
-      script.onerror = function(){
-        alert('打钱失败，重新打钱')
-      }
-      document.body.removeChild(script)
+      $.ajax({
+        url: "http://localhost:8080/pay",
+        dataType: "jsonp",
+        success: function( response ) {
+            alert('成功！！')
+            amount.innerText = +amount.innerText -1
+        }
+      }).fail(function(){
+        alert('失败，请重新打钱')
+      })
     })
   </script>
 </body>
