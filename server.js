@@ -26,24 +26,8 @@ var server = http.createServer(function(request, response){
   var money = +fs.readFileSync('money.db', 'utf8')
   if(path === '/'){
     var string = fs.readFileSync('index.html', 'utf8')
-
     string = string.replace('&&&amount&&&', money)
     response.write(string)
-
-    response.end()
-  }else if(path === '/pay'){   //并且，如果删除函数的话会报错根本没法继续执行。。。
-    if(Math.random() > 0.5){
-      response.statusCode = 200
-      response.setHeader('Content-Type', 'applicant/script; charset=utf-8')
-      response.write(`
-        ${query.callback}.call(undefined, 'success')
-      `)
-      fs.writeFileSync('./money.db', money-1)
-    }else{
-      response.statusCode = 400
-      response.setHeader('Content-Type', 'applicant/script; charset=utf-8')
-    }
-    
     response.end()
   }else{
     response.statusCode = 404
