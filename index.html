@@ -7,8 +7,10 @@
   <title>Document</title>
 </head>
 <body>
-  <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
-  <input type="submit" value="付款一元" id="button">
+  <form action="/pay" method="POST">
+    <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
+    <input type="submit" value="付款一元" id="button">
+  </form>
   
   <script>
     button.addEventListener('click', function(){

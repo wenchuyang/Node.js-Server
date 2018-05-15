@@ -29,6 +29,12 @@ var server = http.createServer(function(request, response){
     string = string.replace('&&&amount&&&', money)
     response.write(string)
     response.end()
+  }else if(path === '/pay'){
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    fs.writeFileSync('money.db', money--)
+    response.write('成功')
+    response.end()
   }else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html; charset=utf-8')
