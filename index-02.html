@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <p> 我，秦始皇，打钱。你的余额为<span id="amount">&&&amount&&&</span> </p> 
+    <input type="submit" value="付款一元" id="button">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script>
+    button.addEventListener('click', function(){
+      $.ajax({
+        url: "http://jack.com:8002/pay",
+        dataType: "jsonp",
+        success: function( response ) {
+            alert('成功！！')
+            amount.innerText = +amount.innerText -1
+        }
+      }).fail(function(){
+        alert('失败，请重新打钱')
+      })
+    })
+  </script>
+</body>
+</html>

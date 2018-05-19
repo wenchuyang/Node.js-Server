@@ -22,14 +22,22 @@ var server = http.createServer(function(request, response){
 
 
 
+
+  var money = +fs.readFileSync('money.db', 'utf8')
   if(path === '/'){
-    var string = fs.readFileSync('index.html', 'utf8')
+    var string = fs.readFileSync('index-02.html', 'utf8')
+    string = string.replace('&&&amount&&&', money)
     response.write(string)
     response.end()
-  }else if(path === '/xxx'){
-    response.statusCode = 200
-    response.setHeader('Content-Type', 'text/html; charset=utf-8')
-    response.write('hello')
+  }else if(path === '/pay'){
+    if(Math.random() > 0.5){
+      response.statusCode = 200
+      response.setHeader('Content-Type', 'application/javascript; charset=utf-8')
+      response.write(`${query.callback}.call(undefined, 'success')`)
+      fs.writeFileSync('money.db', --money)
+    }else{
+      response.statusCode = 400
+    }   
     response.end()
   }else{
     response.statusCode = 404
