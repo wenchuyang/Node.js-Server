@@ -21,15 +21,20 @@ var server = http.createServer(function(request, response){
 
 
 
-
+  var money = +fs.readFileSync('money.db', 'utf8')
   if(path === '/'){
     var string = fs.readFileSync('index.html', 'utf8')
+    string = string.replace('&&&amount&&&', money)
     response.write(string)
     response.end()
   }else if(path === '/xxx'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html; charset=utf-8')
-    response.write('hello')
+    response.write(`{
+      "money": ${--money},
+      "success": true
+    }`)
+    fs.writeFileSync('money.db', money)
     response.end()
   }else{
     response.statusCode = 404
