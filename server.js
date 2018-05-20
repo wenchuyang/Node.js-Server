@@ -30,6 +30,7 @@ var server = http.createServer(function(request, response){
   }else if(path === '/xxx'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    response.setHeader('Access-Control-Allow-Origin', 'http://wcy.com:8080')
     response.write(`{
       "money": ${--money},
       "success": true
