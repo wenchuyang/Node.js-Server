@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <input type="password" name="psw" id="">
+    <button type="submit">点我提交</button>
+    <p>余额为<span id="amount">&&&amount&&&</span></p>
+  <script>
+    let button = document.getElementsByTagName('button')[0]
+    button.addEventListener('click', () => {
+      xxx('POST', '/xxx', 'user=wcy&psw=123', successFn, failedFn)
+    })
+    function xxx(method, url, body, successFn, failedFn){
+      let request = new XMLHttpRequest()
+      request.onreadystatechange = () => {
+        if(request.readyState === 4){
+          if(request.status >= 200 && request.status <= 300){
+            successFn()
+          }else if(request.status >=400){
+            failedFn()
+          }       
+        }
+      }
+      request.open(method, url)
+      request.send(body)
+    }
+    function successFn(){
+      console.log('success')
+    }
+    function failedFn(){
+      console.log('failed')
+    }
+  </script>
+</body>
+</html>
