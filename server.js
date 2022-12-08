@@ -28,6 +28,7 @@ var server = http.createServer(function(request, response){
     response.write(string)
     response.end()
   }else if(path === '/xxx'){
+    console.log('你好，服务器接收到了请求')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html; charset=utf-8')
     response.end()
